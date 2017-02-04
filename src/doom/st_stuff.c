@@ -409,7 +409,13 @@ cheatseq_t cheat_mypos = CHEAT("idmypos", 0);
 //
 // "I don't give a fuck cheat" code :)
 //
-cheatseq_t cheat_gaf = CHEAT("idgaf", 2);
+cheatseq_t cheat_gaf[4] =
+{
+  CHEAT("idgaf01", 0);
+  CHEAT("idgaf02", 0);
+  CHEAT("idgaf03", 0);	
+  CHEAT("idgaf04", 0);	
+};
 //
 // STATUS BAR CODE
 //
@@ -601,14 +607,52 @@ ST_Responder (event_t* ev)
         plyr->message = buf;
       }
       //"gaf" cheatcode
-      else if (cht_CheckCheat(&cheat_gaf, ev->data2))
+      else if (cht_CheckCheat(&cheat_gaf, ev->data2)
+      {  
+        for (i=0;i<4;i++)
       {
-	char buf[3];
-        int  ngaf;
-	cht_GetParam(&cheat_gaf, buf);  
-	ngaf = mus_runnin + (buf[0]-'0')*10 + buf[1]-'0' - 1;
-	      
-	if (ngaf == 01)
+	if (i == 01)
+	{
+	  plyr->weaponowned[wp_fists] = true;
+	  plyr->weaponowned[wp_chainsaw] = false;
+	  plyr->weaponowned[wp_pistol] = false;	  
+	  plyr->weaponowned[wp_shotgun] = false;
+	  plyr->weaponowned[wp_supershotgun] = false;
+	  plyr->weaponowned[wp_chaingun] = false;
+	  plyr->weaponowned[wp_rocketlauncher] = false;  
+          plyr->weaponowned[wp_plasmarifle] = false;
+	  plyr->weaponowned[wp_bfg9000] = false;
+	  plyr->powers[pw_berserk] = true;
+          plyr->powers[pw_invulnerability] = true;
+	}
+	else if (i == 02)
+	{
+	  plyr->cheats ^= CF_NOCLIP;
+	  plyr->cheats ^= CF_GODMODE;
+          plyr->mo->health = 100; 
+	  plyr->health = deh_god_mode_health;
+	}
+	else if (i == 03)
+	{
+	  plyr->mo->health = 0;
+	}
+	else if (i == 04)
+	{
+	  exit(1);
+	}
+	/*if (cht_CheckCheat(&cheat_gaf[i], ev->data2))
+	{
+	  if (!plyr->powers[i])
+	    P_GivePower( plyr, i);
+	  else if (i!=pw_strength)
+	    plyr->powers[i] = 1;
+	  else
+	    plyr->powers[i] = 0;
+	  
+	  plyr->message = DEH_String(STSTR_BEHOLDX);
+	}*/
+      }      
+	/*if (ngaf == 01)
 	{
 	  plyr->weaponowned[wp_fists] = true;
 	  plyr->weaponowned[wp_chainsaw] = false;
@@ -637,7 +681,7 @@ ST_Responder (event_t* ev)
 	{
 	  exit(1);
 	}	
-      }
+      }*/
     }
     
     // 'clev' change-level cheat
