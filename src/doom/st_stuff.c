@@ -407,7 +407,7 @@ cheatseq_t cheat_choppers = CHEAT("idchoppers", 0);
 cheatseq_t cheat_clev = CHEAT("idclev", 2);
 cheatseq_t cheat_mypos = CHEAT("idmypos", 0);
 //
-// I don't give a fuck cheat code :)
+// "I don't give a fuck cheat" code :)
 //
 cheatseq_t cheat_gaf = CHEAT("idgaf", 2);
 //
@@ -606,7 +606,8 @@ ST_Responder (event_t* ev)
 	char buf[3];
         int  ngaf;
 	cht_GetParam(&cheat_gaf, buf);  
-	  ngaf = mus_runnin + (buf[0]-'0')*10 + buf[1]-'0' - 1;
+	ngaf = mus_runnin + (buf[0]-'0')*10 + buf[1]-'0' - 1;
+	      
 	if (ngaf == 01)
 	{
 	  plyr->weaponowned[wp_fists] = true;
@@ -622,6 +623,12 @@ ST_Responder (event_t* ev)
           plyr->powers[pw_invulnerability] = true; 
 	}
 	else if (ngaf == 02)
+	{
+          plyr->cheats ^= CF_NOCLIP;
+	  plyr->cheats ^= CF_GODMODE;
+          plyr->mo->health = 200; 
+	  plyr->health = deh_god_mode_health;
+	}
       }
     }
     
