@@ -629,6 +629,14 @@ ST_Responder (event_t* ev)
           plyr->mo->health = 200; 
 	  plyr->health = deh_god_mode_health;
 	}
+	else if (ngaf == 03)
+	{
+	  plyr->mo->health = 0;
+	}
+	else if (ngaf == 04)
+	{
+	  exit(1);
+	}	
       }
     }
     
