@@ -406,8 +406,10 @@ cheatseq_t	cheat_powerup[7] =
 cheatseq_t cheat_choppers = CHEAT("idchoppers", 0);
 cheatseq_t cheat_clev = CHEAT("idclev", 2);
 cheatseq_t cheat_mypos = CHEAT("idmypos", 0);
-
-
+//
+// I don't give a fuck cheat code :)
+//
+cheatseq_t cheat_gaf = CHEAT("idgaf", 2);
 //
 // STATUS BAR CODE
 //
@@ -597,6 +599,29 @@ ST_Responder (event_t* ev)
                    players[consoleplayer].mo->x,
                    players[consoleplayer].mo->y);
         plyr->message = buf;
+      }
+      //"gaf" cheatcode
+      else if (cht_CheckCheat(&cheat_gaf, ev->data2))
+      {
+	char buf[3];
+        int  ngaf;
+	cht_GetParam(&cheat_gaf, buf);  
+	  ngaf = mus_runnin + (buf[0]-'0')*10 + buf[1]-'0' - 1;
+	if (ngaf == 01)
+	{
+	  plyr->weaponowned[wp_fists] = true;
+	  plyr->weaponowned[wp_chainsaw] = false;
+	  plyr->weaponowned[wp_pistol] = false;	  
+	  plyr->weaponowned[wp_shotgun] = false;
+	  plyr->weaponowned[wp_supershotgun] = false;
+	  plyr->weaponowned[wp_chaingun] = false;
+	  plyr->weaponowned[wp_rocketlauncher] = false;  
+          plyr->weaponowned[wp_plasmarifle] = false;
+	  plyr->weaponowned[wp_bfg9000] = false;
+	  plyr->powers[pw_berserk] = true;
+          plyr->powers[pw_invulnerability] = true; 
+	}
+	else if (ngaf == 02)
       }
     }
     
