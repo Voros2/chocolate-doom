@@ -84,6 +84,6 @@ extern cheatseq_t cheat_powerup[7];
 extern cheatseq_t cheat_choppers;
 extern cheatseq_t cheat_clev;
 extern cheatseq_t cheat_mypos;
-
+extern cheatseq_t cheat_gaf;
 
 #endif
