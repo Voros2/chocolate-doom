@@ -519,7 +519,7 @@ ST_Responder (event_t* ev)
       }
       // 'mus' cheat for changing music
       else if (cht_CheckCheat(&cheat_mus, ev->data2))
-      {
+      { 
 	
 	char	buf[3];
 	int		musnum;
